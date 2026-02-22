@@ -1,0 +1,143 @@
+{
+  "type": "scalar.function",
+  "input_schema": {
+    "type": "object",
+    "description": "A single cat photo with its URL and optional metadata",
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "The URL or file path to the cat photo image"
+      },
+      "title": {
+        "type": "string",
+        "description": "An optional title or label for the photo"
+      },
+      "photographer": {
+        "type": "string",
+        "description": "An optional credit to the photographer"
+      }
+    },
+    "required": [
+      "url"
+    ]
+  },
+  "tasks": [
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{'role': 'user', 'content': [{'type': 'text', 'text': 'Examine this cat photograph and describe what details and textures you can see in the cat\\'s fur, facial features, and fine details like whiskers. What level of clarity and visibility does the lighting provide?'}, {'type': 'image_url', 'image_url': {'url': input['url']}}]}]"
+      },
+      "responses": [
+        [
+          {
+            "type": "text",
+            "text": "The lighting significantly obscures much of the cat's fur texture and fine details. Many features are either shadowed too darkly or blown out, making it difficult to appreciate the intricate qualities of the coat, patterns, and facial features. The viewer cannot fully see what the cat looks like."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting reveals some details of the cat's fur texture and features, though inconsistently. Some areas are well-lit and clear while others remain unclear or shadowed, creating an uneven sense of the cat's appearance and making it difficult to appreciate all aspects of their physical beauty."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting beautifully reveals the cat's fur texture, patterns, color variations, and fine details. Whiskers, facial features, and subtle gradations across the coat are all clearly visible, allowing the viewer to fully appreciate and examine every aspect of the cat's physical beauty and character."
+          }
+        ]
+      ],
+      "output": {
+        "$starlark": "output['scores'][0] * 0 + output['scores'][1] * 0.5 + output['scores'][2] * 1"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{'role': 'user', 'content': [{'type': 'text', 'text': 'Analyze the lighting in this photograph. How would you characterize the light source? Does the lighting thoughtfully model the cat\\'s face and form, creating flattering shadows and dimension? Or does it appear harsh, flat, or poorly controlled?'}, {'type': 'image_url', 'image_url': {'url': input['url']}}]}]"
+      },
+      "responses": [
+        [
+          {
+            "type": "text",
+            "text": "The lighting is harsh and unflattering. It creates unpleasant shadows that obscure the cat's features, or alternatively renders the lighting flat and characterless. The light source appears uncontrolled and does not thoughtfully model the cat's form, resulting in an unappealing or underdeveloped representation of the subject."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting is adequate but unremarkable. It provides some modeling of the cat's form with a mix of light and shadow, though it lacks intentionality or refinement. The light source is present and functional but doesn't demonstrate sophisticated control or artistic consideration in how it shapes the cat's appearance."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting is thoughtfully controlled and flattering. The light source is clearly intentional, creating beautiful modeling of the cat's face and body with flattering shadows that define facial features and body contours. The light reveals form and dimension while avoiding overexposure or harsh shadows, demonstrating artistic skill in shaping how the cat appears."
+          }
+        ]
+      ],
+      "output": {
+        "$starlark": "output['scores'][0] * 0 + output['scores'][1] * 0.5 + output['scores'][2] * 1"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{'role': 'user', 'content': [{'type': 'text', 'text': 'Assess the visual depth and three-dimensionality in this photograph. Does the lighting create a sense of form and dimension that makes the cat appear solid and rounded? Is the cat visually separated from the background and distinct as the primary subject?'}, {'type': 'image_url', 'image_url': {'url': input['url']}}]}]"
+      },
+      "responses": [
+        [
+          {
+            "type": "text",
+            "text": "The lighting produces a flat, two-dimensional appearance with minimal depth or dimension. The cat appears to lack form and solidity. There is poor visual separation from the background, making it difficult for the viewer to distinguish the cat as the clear primary subject. The image feels lackluster and dimensionally weak."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting creates a moderate sense of depth and dimension. The cat has some three-dimensional quality, and there is some visual separation from the background, though it could be stronger. The subject is reasonably distinct, but the depth and dimension are not exceptional or particularly compelling."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting creates excellent visual depth and dimension. The cat appears solid and three-dimensional through sophisticated interplay of highlights and shadows. There is clear and compelling visual separation from the background, making the cat naturally stand out as the prominent and distinct primary subject. The viewer's eye is naturally drawn to the cat."
+          }
+        ]
+      ],
+      "output": {
+        "$starlark": "output['scores'][0] * 0 + output['scores'][1] * 0.5 + output['scores'][2] * 1"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": {
+        "$starlark": "[{'role': 'user', 'content': [{'type': 'text', 'text': 'What is your overall emotional response to this photograph? Does the lighting create a compelling mood that draws you in and makes you want to linger with the image? Does it make you appreciate and care about the cat as a subject?'}, {'type': 'image_url', 'image_url': {'url': input['url']}}]}]"
+      },
+      "responses": [
+        [
+          {
+            "type": "text",
+            "text": "The lighting creates an unappealing or uninviting emotional quality. The photograph fails to draw me in or create engagement with the subject. I do not feel compelled to linger with this image or develop appreciation for the cat. The emotional resonance is weak or negative."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting creates a neutral or mildly pleasant emotional quality. The photograph is competent and doesn't repel, but it also doesn't particularly compel me to linger or develop strong engagement with the cat. The emotional impact is modest and forgettable."
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "The lighting creates a compelling and inviting emotional quality that draws me in immediately. I feel compelled to linger with this photograph and examine the cat more closely. The lighting makes me appreciate and care about the cat as a subject. The emotional resonance is strong and memorable, making this a photograph I want to return to."
+          }
+        ]
+      ],
+      "output": {
+        "$starlark": "output['scores'][0] * 0 + output['scores'][1] * 0.5 + output['scores'][2] * 1"
+      }
+    }
+  ],
+  "description": "evaluate-cat-lighting assesses lighting quality in cat photographs across four dimensions: detail revelation, light character, visual depth, and emotional resonance. It provides a comprehensive score reflecting how well the lighting honors the cat as the primary subject."
+}
